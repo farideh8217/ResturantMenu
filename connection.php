@@ -14,7 +14,7 @@ try {
 }
 ///////////////////////////////////
 function getresturants() {
-  global $db ;
+  	global $db ;
 
 	$sql="SELECT * FROM `resturant`";
 	$stmt = $db->prepare($sql);
@@ -22,8 +22,9 @@ function getresturants() {
 	$resturants = $stmt->fetchAll(PDO::FETCH_ASSOC);
 	return $resturants;
 }
+
 function getfoods(int $resturant_id) {
-  global $db;
+  	global $db;
 
     $sql="SELECT * FROM `food` WHERE `resturant_id`= :resturant_id";
 	$stmt = $db->prepare($sql);
@@ -32,14 +33,16 @@ function getfoods(int $resturant_id) {
 	$foods = $stmt->fetchAll(PDO::FETCH_ASSOC);
 	return $foods;
 }
+
 function getresturant(int $resturant_id) {
 	global $db;
 
-	$sql = "SELECT `id` FROM `resturant` WHERE id= :resturant_id";
+	$sql = "SELECT * FROM `resturant` WHERE id= :resturant_id";
 	$stmt = $db->prepare($sql);
 	$stmt->bindParam(":resturant_id",$resturant_id);
 	$stmt->execute();
-	$food= $stmt->fetch(PDO::FETCH_ASSOC);
-	return $food;
+	$resturant= $stmt->fetch(PDO::FETCH_ASSOC);
+	return $resturant;
 }
-
+///////////////////////////
+ 
