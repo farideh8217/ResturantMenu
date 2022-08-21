@@ -1,16 +1,13 @@
 <?php
 require "connection.php";
 
-if (!isset($_SESSION['id']))  { 
-	header("Location: login.php");
-	exit();
-}
+auth();
 
 $resturant_id = $_SESSION['id'];
 $rest = getresturant($resturant_id);
 if ($rest === false) {
     header("Location: login.php");
-	exit();
+    exit();
 }
 $foods = getfoods($resturant_id);
 $resturants = getresturants();
@@ -26,18 +23,18 @@ $resturants = getresturants();
 </head>
 
 <body>
-    <?php echo $rest["name_resturant"];?>
-    <table border="2">
+<?php echo $rest["name_resturant"]; ?>
+<table border="2">
+    <tr>
+        <th>Name</th>
+        <th>price</th>
+    </tr>
+    <?php foreach ($foods as $food) { ?>
         <tr>
-            <th>Name</th>
-            <th>price</th>
-        </tr> 
-        <?php foreach ($foods as $food) { ?>
-            <tr>
-                <td><?= $food["name_food"]?></td>
-                <td><?= $food["price"]?></td> 
-            </tr>  
-        <?php } ?>
-    </table>
+            <td><?= $food["name_food"] ?></td>
+            <td><?= $food["price"] ?></td>
+        </tr>
+    <?php } ?>
+</table>
 </body>
 </html>
